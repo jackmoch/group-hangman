@@ -2,13 +2,13 @@ import React from 'react'
 import { connect } from 'react-redux'
 
 import Game from '../components/Game'
+import Nav from '../components/Nav'
 
 class App extends React.Component {
     render() {
       return (
         <div className='container'>
-          <h1>Hello from {this.props.user.hello}</h1>
-          <button onClick={() => this.props.setName('hello')}>Hello</button>
+          <Nav />
           <Game {...this.props}/>
         </div>
       )
