@@ -24,7 +24,8 @@ const reducer = (state = {
     case "GUESS_LETTER":
       state = {
         ...state,
-        letter: action.payload
+        letter: action.payload,
+        turns: state.turns - action.incrementOrDecrement
       }
       return state
   }

@@ -32,7 +32,8 @@ const mapDispatchToProps = dispatch => {
     guessLetter: letter => {
       dispatch({
         type: 'GUESS_LETTER',
-        payload: letter
+        payload: letter,
+        incrementOrDecrement: 1
       })
     }
   }
