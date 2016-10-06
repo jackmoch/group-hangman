@@ -8,7 +8,8 @@ import logger from 'redux-logger'
 import { Provider } from 'react-redux'
 
 const reducer = (state = {
-  hello: 'goobye'
+  hello: 'goobye',
+  letter: ''
 }, action) => {
 
   switch(action.type) {
@@ -16,6 +17,11 @@ const reducer = (state = {
       state = {
         ...state,
         hello: action.payload
+      }
+    case "GUESS_LETTER":
+      state = {
+        ...state,
+        letter: action.payload
       }
       return state
   }
