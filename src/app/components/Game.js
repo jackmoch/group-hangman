@@ -3,14 +3,27 @@ import React from 'react'
 export default class Game extends React.Component {
   render() {
     let letter
+    const {user} = this.props
     const handleChange = function(e) {
        letter = e.target.value
     }
-    const word = 'word'
+    const populateArray = function (){
+      user.word.split('').forEach(v => user.guessArray.push(' _ '))
+    }
+    if(user.guessArray.length === 0) {
+      populateArray()
+    }
+    const testLetter = function() {
+      user.word.split('').forEach((v,i) => {
+        if(user.letter === v) {
+          user.guessArray.splice(i, 1, ` ${v} `)
+        }
+      })
+    }()
     return (
       <div>
-        <h3>Turns remaining: XXXXXX</h3>
-        {word.split('').map((v,i) => <span key={i}>_ </span>)}
+        <h3>Turns remaining: {user.turns}</h3>
+        {user.guessArray.map((v = _,i) => <span key={i}>{v}</span>)}
         <input type='text' onChange={handleChange}/>
         <button onClick={() => this.props.guessLetter(letter)}>Placeholder</button>
       </div>

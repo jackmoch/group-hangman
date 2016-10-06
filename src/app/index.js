@@ -8,8 +8,11 @@ import logger from 'redux-logger'
 import { Provider } from 'react-redux'
 
 const reducer = (state = {
-  hello: 'goobye',
-  letter: ''
+  hello: 'goodbye',
+  letter: '',
+  word: 'dracula',
+  turns: 6,
+  guessArray: []
 }, action) => {
 
   switch(action.type) {
