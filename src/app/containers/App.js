@@ -7,9 +7,9 @@ class App extends React.Component {
     render() {
       return (
         <div className='container'>
-        <h1>Hello from {this.props.user.hello}</h1>
-        <button onClick={() => this.props.setName('hello')}>Hello</button>
-        <Game {...this.props}/>
+          <h1>Hello from {this.props.user.hello}</h1>
+          <button onClick={() => this.props.setName('hello')}>Hello</button>
+          <Game {...this.props}/>
         </div>
       )
     }
