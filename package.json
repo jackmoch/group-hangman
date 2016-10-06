@@ -1,0 +1,31 @@
+{
+  "name": "group-hangman",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "postinstall": "bower install"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jackmoch/group-hangman.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jackmoch/group-hangman/issues"
+  },
+  "homepage": "https://github.com/jackmoch/group-hangman#readme",
+  "dependencies": {
+    "bower": "^1.7.9",
+    "express": "^4.14.0",
+    "express-react-views": "^0.10.2",
+    "react": "^15.3.2",
+    "react-dom": "^15.3.2",
+    "react-redux": "^4.4.5",
+    "redux": "^3.6.0",
+    "redux-logger": "^2.7.0",
+    "socket.io": "^1.4.8"
+  }
+}

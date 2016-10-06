@@ -1,0 +1,21 @@
+{
+  "name": "group-hangman",
+  "description": "",
+  "main": "index.js",
+  "authors": [
+    "Jack Mocherman <mochermanjack@gmail.com>"
+  ],
+  "license": "ISC",
+  "homepage": "https://github.com/jackmoch/group-hangman",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "public/lib",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "materialize": "^0.97.7"
+  }
+}
