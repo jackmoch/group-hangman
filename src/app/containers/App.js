@@ -1,15 +1,19 @@
 import React from 'react'
 import { connect } from 'react-redux'
 
-import Game from '../components/Game'
 import Nav from '../components/Nav'
 
 class App extends React.Component {
     render() {
+      const childComponents = React.Children.map(this.props.children,
+        child => React.cloneElement(child, {
+          ...this.props
+        }))
+
       return (
         <div className='container'>
           <Nav />
-          <Game {...this.props}/>
+          {childComponents}
         </div>
       )
     }
