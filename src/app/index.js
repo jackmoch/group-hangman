@@ -53,12 +53,10 @@ const clientReducer = (state = {}, action) => {
   }
 }
 
-let store = applyMiddleware(socketIoMiddleware)(createStore)(combineReducers({userReducer}))
+let store = applyMiddleware(socketIoMiddleware)(createStore)(combineReducers({userReducer, clientReducer}))
 store.subscribe(() => {
   console.log('new client state', store.getState())
 })
-
-store.dispatch({type: 'server/hello', date: 'hello'})
 
 render(
   <Provider store={store}>
