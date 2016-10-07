@@ -12,7 +12,6 @@ import Game from './components/Game'
 import Home from './components/Home'
 
 const reducer = (state = {
-  hello: 'goodbye',
   letter: '',
   word: 'dracula',
   turns: 6,
@@ -20,11 +19,6 @@ const reducer = (state = {
 }, action) => {
 
   switch(action.type) {
-    case "HELLO":
-      state = {
-        ...state,
-        hello: action.payload
-      }
     case "GUESS_LETTER":
       state = {
         ...state,
