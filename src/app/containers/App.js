@@ -17,7 +17,8 @@ class App extends React.Component {
 
 const mapStateToProps = state => {
   return {
-    user: state.reducer
+    user: state.reducer,
+    guess: state.guessArrayReducer
   }
 }
 
@@ -33,6 +34,24 @@ const mapDispatchToProps = dispatch => {
       dispatch({
         type: 'GUESS_LETTER',
         payload: letter
+      })
+    },
+    userInput: character => {
+      dispatch({
+        type: 'INPUT',
+        payload: character
+      })
+    },
+    pushUnderscores: underscore => {
+      dispatch({
+        type: 'PUSH_UNDERSCORES',
+        payload: underscore
+      })
+    },
+    sliceGuessArray: letter => {
+      dispatch({
+        type: 'SLICE_GUESS_ARRAY',
+        
       })
     }
   }

@@ -12,7 +12,8 @@ const reducer = (state = {
   letter: '',
   word: 'dracula',
   turns: 6,
-  guessArray: []
+  input: '',
+  character: ''
 }, action) => {
 
   switch(action.type) {
@@ -26,13 +27,41 @@ const reducer = (state = {
         ...state,
         letter: action.payload
       }
+    case "INPUT": 
+      state = {
+        ...state,
+        character: action.payload
+      }
       return state
   }
   return state
 }
 
+const guessArrayReducer = (state = {
+  guessArray: [],
+}, action) => {
+
+  switch(action.type) {
+    case "PUSH_UNDERSCORES":
+      state = {
+        ...state,
+        guessArray: [...state.guessArray, action.payload] 
+      }
+    break
+    case "SLICE_GUESS_ARRAY":
+      let array = []
+      state = {
+        ...state,
+        guessArray: array.concat(state.guessArray.slice(0, 5))
+      }
+    break
+      return state
+    }
+  return state
+}
+
 const store = createStore(
-  combineReducers({reducer}),
+  combineReducers({reducer, guessArrayReducer}),
   {},
   applyMiddleware(logger())
 )

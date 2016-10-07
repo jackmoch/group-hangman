@@ -2,33 +2,30 @@ import React from 'react'
 
 export default class Game extends React.Component {
   render() {
-    let letter
     const {user} = this.props
-    const handleChange = function(e) {
-       letter = e.target.value
-    }
+    const {guess} = this.props
     const populateArray = function (){
-      user.word.split('').forEach(v => user.guessArray.push(' _ '))
-    }
-    if(user.guessArray.length === 0) {
+      user.word.split('').forEach(v => this.props.pushUnderscores(' _ '))
+    }.bind(this)
+    if(guess.guessArray.length === 0) {
       populateArray()
     }
-    const testLetter = function() {
+    const testLetter = function(letter) {
       user.word.split('').forEach((v,i) => {
-        if(user.letter.toLowerCase() === v.toLowerCase()) {
-          user.guessArray.splice(i, 1, ` ${v} `)
+        if(letter.toLowerCase() === v.toLowerCase()) {
+          this.props.sliceGuessArray(i)
         }
       })
-    }()
+    }.bind(this)
     const clearInputs = function(e) {
       e.target.value = ''
     }
     return (
       <div>
         <h3>Turns remaining: {user.turns}</h3>
-        {user.guessArray.map((v = _,i) => <span key={i}>{v}</span>)}
-        <input type='text' onChange={handleChange} onBlur={clearInputs} placeholder='your letter here'/>
-        <button onClick={() => this.props.guessLetter(letter)}>Placeholder</button>
+        {guess.guessArray.map((v = _,i) => <span key={i}>{v}</span>)}
+        <input type='text' onChange={(event) => this.props.userInput(event.target.value)} onBlur={(event) => {event.target.value = ''}} placeholder='your letter here'/>
+        <button onClick={() => testLetter(this.props.user.character)}>Placeholder</button>
       </div>
     )
   }
