@@ -7,6 +7,10 @@ import { createStore, combineReducers, applyMiddleware } from'redux'
 import logger from 'redux-logger'
 import { Provider } from 'react-redux'
 
+import { browserHistory, Router, Route } from 'react-router'
+import Game from './components/Game'
+import Home from './components/Home'
+
 const reducer = (state = {
   hello: 'goodbye',
   letter: '',
@@ -43,5 +47,10 @@ store.subscribe(() => {
 })
 render(
   <Provider store={store}>
-    <App />
+    <Router history={browserHistory}>
+      <Route path='/' component={App}>
+        <Route path='/home' component={Home} />
+        <Route path='/game' component={Game} />
+      </Route>
+    </Router>
   </Provider>, window.document.getElementById('app'));
