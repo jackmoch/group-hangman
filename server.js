@@ -1,19 +1,18 @@
 'use strict'
-const express = require('express')
-const     app = express()
 const    PORT = process.env.PORT || 3000
-const    path = require('path')
-const  routes = require('./routes/index')
+
+const { createServer } = require('http')
+const server = createServer()
+const socket_io = require('socket.io')
+
+server.listen(PORT)
+
+const io = socket_io()
+io.attach(server)
 
 
-app.set('port', PORT)
-app.set('views', __dirname + '/views')
-app.set('view engine', 'jsx')
-app.engine('jsx', require('express-react-views').createEngine())
-app.use(express.static('public'))
+io.on('connection', socket => {
+  console.log(`Socket connected: ${socket.id}`)
 
-app.use(routes)
-
-app.listen(PORT, () => {
-  console.log(`Now listening on port ${PORT}`)
+  socket.on('disconnect', () => console.log(`Socket disconnected: ${socket.id}`))
 })
