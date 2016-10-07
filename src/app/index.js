@@ -7,8 +7,11 @@ import { createStore, combineReducers, applyMiddleware } from'redux'
 import logger from 'redux-logger'
 import { Provider } from 'react-redux'
 
+import { browserHistory, Router, Route } from 'react-router'
+import Game from './components/Game'
+import Home from './components/Home'
+
 const reducer = (state = {
-  hello: 'goodbye',
   letter: '',
   word: 'dracula',
   turns: 6,
@@ -16,15 +19,11 @@ const reducer = (state = {
 }, action) => {
 
   switch(action.type) {
-    case "HELLO":
-      state = {
-        ...state,
-        hello: action.payload
-      }
     case "GUESS_LETTER":
       state = {
         ...state,
-        letter: action.payload
+        letter: action.payload,
+        turns: state.turns - action.incrementOrDecrement
       }
       return state
   }
@@ -42,5 +41,10 @@ store.subscribe(() => {
 })
 render(
   <Provider store={store}>
-    <App />
+    <Router history={browserHistory}>
+      <Route path='/' component={App}>
+        <Route path='/home' component={Home} />
+        <Route path='/game' component={Game} />
+      </Route>
+    </Router>
   </Provider>, window.document.getElementById('app'));

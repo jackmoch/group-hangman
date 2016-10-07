@@ -1,15 +1,19 @@
 import React from 'react'
 import { connect } from 'react-redux'
 
-import Game from '../components/Game'
+import Nav from '../components/Nav'
 
 class App extends React.Component {
     render() {
+      const childComponents = React.Children.map(this.props.children,
+        child => React.cloneElement(child, {
+          ...this.props
+        }))
+
       return (
         <div className='container'>
-          <h1>Hello from {this.props.user.hello}</h1>
-          <button onClick={() => this.props.setName('hello')}>Hello</button>
-          <Game {...this.props}/>
+          <Nav />
+          {childComponents}
         </div>
       )
     }
@@ -32,7 +36,8 @@ const mapDispatchToProps = dispatch => {
     guessLetter: letter => {
       dispatch({
         type: 'GUESS_LETTER',
-        payload: letter
+        payload: letter,
+        incrementOrDecrement: 1
       })
     }
   }
