@@ -21,7 +21,8 @@ class App extends React.Component {
 
 const mapStateToProps = state => {
   return {
-    user: state.userReducer
+    user: state.userReducer,
+    client: state.clientReducer
   }
 }
 
@@ -38,6 +39,12 @@ const mapDispatchToProps = dispatch => {
         type: 'GUESS_LETTER',
         payload: letter,
         incrementOrDecrement: 1
+      })
+    },
+    serverTest: () => {
+      dispatch({
+        type: 'server/hello',
+        data: 'hello!'
       })
     }
   }

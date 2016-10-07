@@ -6,7 +6,7 @@ export default class Home extends React.Component {
     return (
       <div>
         <h1>Home page</h1>
-        <button className='btn'>
+        <button className='btn' onClick={() => this.props.serverTest()}>
           <Link to={'/game'}>New Game</Link>
         </button>
       </div>
