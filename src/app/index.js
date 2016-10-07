@@ -11,7 +11,7 @@ import { browserHistory, Router, Route } from 'react-router'
 import Game from './components/Game'
 import Home from './components/Home'
 
-const reducer = (state = {
+const userReducer = (state = {
   letter: '',
   word: 'dracula',
   turns: 6,
@@ -31,7 +31,7 @@ const reducer = (state = {
 }
 
 const store = createStore(
-  combineReducers({reducer}),
+  combineReducers({userReducer}),
   {},
   applyMiddleware(logger())
 )
