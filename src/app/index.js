@@ -15,8 +15,18 @@ import io from 'socket.io-client'
 let socket = io('http://localhost:3000')
 let socketIoMiddleware = createSocketIoMiddleware(socket, "server/")
 
-// const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
-let store = applyMiddleware(socketIoMiddleware, logger())(createStore)(combineReducers({...reducers}))
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
+// let store = applyMiddleware(socketIoMiddleware, logger())(createStore)(combineReducers({...reducers}))
+let store = composeEnhancers(applyMiddleware(socketIoMiddleware, logger()))(createStore)(combineReducers({...reducers}))
+
+// const store = compose(
+//   applyMiddleware(m1, m2, m3),
+//   reduxReactRouter({
+//     routes,
+//     createHistory
+//   }),
+//   devTools()
+// )(createStore)(reducer);
 store.subscribe(() => {})
 // end redux setup
 
