@@ -52,7 +52,7 @@ const guessArrayReducer = (state = {
       let array = []
       state = {
         ...state,
-        guessArray: array.concat(state.guessArray.slice(0, 5))
+        guessArray: array.concat(state.guessArray.slice(0, state.guessArray.length - 1))
       }
     break
       return state
