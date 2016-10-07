@@ -11,6 +11,19 @@ import { browserHistory, Router, Route } from 'react-router'
 import Game from './components/Game'
 import Home from './components/Home'
 
+
+
+
+
+
+
+import createSocketIoMiddleware from 'redux-socket.io'
+import io from 'socket.io-client'
+
+let socket = io('http://localhost:3000')
+let socketIoMiddleware = createSocketIoMiddleware(socket, "server/")
+
+
 const userReducer = (state = {
   letter: '',
   word: 'dracula',
@@ -26,19 +39,27 @@ const userReducer = (state = {
         turns: state.turns - action.incrementOrDecrement
       }
       return state
+    default:
+      return state
   }
-  return state
 }
 
-const store = createStore(
-  combineReducers({userReducer}),
-  {},
-  applyMiddleware(logger())
-)
+const clientReducer = (state = {}, action) => {
+  switch(action.type) {
+    case "MESSAGE":
+      return Object.assign({}, {message: action.data})
+    default:
+      return state
+  }
+}
 
+let store = applyMiddleware(socketIoMiddleware)(createStore)(combineReducers({userReducer}))
 store.subscribe(() => {
-
+  console.log('new client state', store.getState())
 })
+
+store.dispatch({type: 'server/hello', date: 'hello'})
+
 render(
   <Provider store={store}>
     <Router history={browserHistory}>
