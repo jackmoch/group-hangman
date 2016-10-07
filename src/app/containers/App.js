@@ -21,7 +21,7 @@ class App extends React.Component {
 
 const mapStateToProps = state => {
   return {
-    user: state.reducer
+    user: state.userReducer
   }
 }
 
@@ -33,11 +33,16 @@ const mapDispatchToProps = dispatch => {
         payload: name
       })
     },
-    guessLetter: letter => {
+    guessLetter: (letter, bool) => {
       dispatch({
         type: 'GUESS_LETTER',
         payload: letter,
-        incrementOrDecrement: 1
+        incrementOrDecrement: (function() {
+          if(!bool) {
+            return 1
+          }
+          return 0
+        }())
       })
     }
   }

@@ -6,7 +6,7 @@ export default class Game extends React.Component {
     const {
       props, populateArray,
       testLetter, clearInputs,
-      checkWinner             } = this
+      checkWinner, handleClick} = this
     const { user, guessLetter } = props
 
     let letter
@@ -16,7 +16,8 @@ export default class Game extends React.Component {
         : target.value.slice(0,1)
      }
     ;(user.guessArray.length === 0) ? populateArray(user) : null
-    testLetter(user)
+    // const testBool = testLetter(user)
+    // console.log('GAME BOOL', testBool)
 
     if(checkWinner(user)) {
       return (
@@ -38,7 +39,7 @@ export default class Game extends React.Component {
         <h3>Turns remaining: {user.turns}</h3>
         {user.guessArray.map((v,i) => <span key={i}>{v}</span>)}
         <input type='text' onChange={handleChange} onBlur={clearInputs} placeholder='your letter here'/>
-        <button className='btn' onClick={() => guessLetter(letter)}>Placeholder</button>
+        <button className='btn' onClick={() => handleClick(letter, testLetter, guessLetter, user)}>Placeholder</button>
       </div>
     )
   }
@@ -46,11 +47,14 @@ export default class Game extends React.Component {
     e.target.value = ''
   }
   testLetter(user) {
+    let guessFlag = []
     user.word.split('').forEach((v,i) => {
       if(user.letter.toLowerCase() === v.toLowerCase()) {
         user.guessArray.splice(i, 1, ` ${v} `)
+        guessFlag.push(true)
       }
     })
+    return guessFlag.length !== 0 ? true : false
   }
   populateArray(user) {
     user.word.split('').forEach(v => user.guessArray.push(' _ '))
@@ -60,5 +64,9 @@ export default class Game extends React.Component {
        return false
      }
      return true
+  }
+  handleClick(letter, testLetter, guessLetter, user) {
+    console.log(testLetter(user))
+    guessLetter(letter, testLetter(user))
   }
 }
