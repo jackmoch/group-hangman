@@ -46,6 +46,11 @@ const mapDispatchToProps = dispatch => {
         type: 'server/hello',
         data: 'hello!'
       })
+    },
+    newGame: () => {
+      dispatch({
+        type: 'server/NEW_GAME'
+      })
     }
   }
 }
