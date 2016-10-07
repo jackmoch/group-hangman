@@ -1,10 +1,5 @@
 'use strict'
-// const express = require('express')
-// const     app = express()
 const    PORT = process.env.PORT || 3000
-const    path = require('path')
-
-
 
 const { createServer } = require('http')
 const server = createServer()
@@ -15,13 +10,6 @@ server.listen(PORT)
 const io = socket_io()
 io.attach(server)
 
-//
-// app.set('port', PORT)
-//
-//
-// app.listen(PORT, () => {
-//   console.log(`Now listening on port ${PORT}`)
-// })
 
 io.on('connection', socket => {
   console.log(`Socket connected: ${socket.id}`)
