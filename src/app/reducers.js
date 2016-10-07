@@ -22,6 +22,8 @@ export const clientReducer = (state = {}, action) => {
   switch(action.type) {
     case "MESSAGE":
       return Object.assign({}, {message: action.data})
+    case "NEW_GAME":
+      return Object.assign({}, {id: action.data})
     default:
       return state
   }
