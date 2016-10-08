@@ -12,9 +12,8 @@ export default class Routes extends React.Component {
       <Router history={browserHistory}>
         <Route path='/' component={App}>
           <Route path='/home' component={Home} />
-          <Route path='/game' component={GameLobby}>
-            <Route path='/game/:id' component={Game} />
-          </Route>
+          <Route path='/game' component={GameLobby} />
+          <Route path='/game/:id' component={Game} />
         </Route>
       </Router>
     )

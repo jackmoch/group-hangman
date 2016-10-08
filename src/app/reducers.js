@@ -20,10 +20,10 @@ export const userReducer = (state = {
 
 export const clientReducer = (state = {}, action) => {
   switch(action.type) {
-    case "MESSAGE":
-      return Object.assign({}, {message: action.data})
     case "NEW_GAME":
-      return Object.assign({}, {id: action.data})
+      return Object.assign({}, state, {id: action.data})
+    case "GAMES_LIST":
+      return Object.assign({}, state, {gamesList: action.data})
     default:
       return state
   }

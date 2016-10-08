@@ -34,12 +34,20 @@ io.on('connection', socket => {
   				wordToGuess: 'test'
   			})
   			.then(game => socket.emit('action', {type: 'NEW_GAME', data: game._id}))
+				.catch(err => {
+					socket.emit({type:'ERROR', msg: err.stack})
+					console.error(err.stack)
+				})
+			case "server/LOAD_GAMES":
+				Game.find({})
+				.then(games => {
+					const gameIds = games.map(game => game._id)
+					socket.emit('action', {type: 'GAMES_LIST', data: gameIds})
+				})
+				.catch(console.error)
+			default:
+				break
   	}
-    console.log('ACTION',action)
-    if(action.type === 'server/hello') {
-      console.log('GOT DATA!', action.data)
-      socket.emit('action', {type: 'MESSAGE', data: 'good day!'})
-    }
   })
   socket.on('disconnect', () => console.log(`Socket disconnected: ${socket.id}`))
 })

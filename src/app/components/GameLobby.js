@@ -2,17 +2,23 @@ import React from 'react'
 import { Link } from 'react-router'
 
 class GameLobby extends React.Component {
+  loadNewGame(cb) {
+
+  }
   render() {
+    const { props } = this
+    const gameList = props.client.gamesList.map((id,i) => {
+      return (
+        <Link key={id} to={`/game/${id}`} className="collection-item" activeClassName='active'>Game {i+1}</Link>
+      )
+    })
     return (
       <div className='container'>
         <div className="collection with-header">
           <h4 className="collection-header text-center">Available Games</h4>
-          <Link to="/game/asdas" className="collection-item" activeClassName='active'>Alvin</Link>
-          <Link to="/game/sada" className="collection-item" activeClassName='active'>Alvin</Link>
-          <Link to="/game/lkj" className="collection-item" activeClassName='active'>Alvin</Link>
-          <Link to="/game/asbmnbdas" className="collection-item" activeClassName='active'>Alvin</Link>
+          {gameList}
         </div>
-        <button className='btn'>New Game</button>
+        <button className='btn' onClick={() => props.newGame()}>New Game</button>
       </div>
     )
   }

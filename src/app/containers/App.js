@@ -12,7 +12,7 @@ class App extends React.Component {
 
       return (
         <div className='container'>
-          <Nav />
+          <Nav {...this.props}/>
           {childComponents}
         </div>
       )
@@ -28,12 +28,6 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    setName: name => {
-      dispatch({
-        type: 'HELLO',
-        payload: name
-      })
-    },
     guessLetter: letter => {
       dispatch({
         type: 'GUESS_LETTER',
@@ -41,15 +35,14 @@ const mapDispatchToProps = dispatch => {
         incrementOrDecrement: 1
       })
     },
-    serverTest: () => {
-      dispatch({
-        type: 'server/hello',
-        data: 'hello!'
-      })
-    },
     newGame: () => {
       dispatch({
         type: 'server/NEW_GAME'
+      })
+    },
+    loadGames: () => {
+      dispatch({
+        type: 'server/LOAD_GAMES'
       })
     }
   }
