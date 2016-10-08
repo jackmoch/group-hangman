@@ -4,10 +4,10 @@ import { Link } from 'react-router'
 export default class Nav extends React.Component {
   render() {
     return (
-      <nav>
+      <nav className='nav-bar'>
         <ul>
           <li><Link to={'/home'}>Home</Link></li>
-          <li><Link to={'/game'}>New Game</Link></li>
+          <li><Link to={'/game'}>Lobby</Link></li>
         </ul>
       </nav>
     )
