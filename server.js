@@ -60,29 +60,24 @@ io.on('connection', socket => {
 				})
 				.catch(console.error)
 			case "server/LOAD_GAME":
-				Game.find({_id: action.id})
+				Game.findOne({_id: action.id})
 				.then(game => socket.emit('action', {type:'GAME_LOADED', data: game}))
 				.catch(console.error)
 			case "server/GUESS_LETTER":
-				Game
-					.findOne({_id: action.id})
-					.then(game => {
-						const gameState = Object.assign({}, {
-							id: game._id,
-							guessArray: game.state.guessArray,
-							turns: game.state.turns,
-							letter: game.state.letter,
-							word: game.state.word
-						})
-						gameState.word.split('').forEach((v,i) => {
-				      if(action.letter.toLowerCase() === v.toLowerCase()) {
-				        gameState.guessArray.splice(i, 1, ` ${v} `)
-				      }
-				    })
-						return game.save()
-					})
-					.then(g => socket.emit('action', {type: 'GAME_UPDATE', data: g.state}))
-					.catch(console.error)
+				Game.findOne({_id: action.id})
+				.then(game => {
+					let x = 1
+					game.state.word.split('').forEach((v,i) => {
+			      if(action.letter.toLowerCase() === v.toLowerCase()) {
+			        game.state.guessArray.splice(i, 1, ` ${v} `)
+							x = 0
+			      }
+			    })
+					game.state.turns -= x
+					return game.save()
+				})
+				.then(g => socket.emit('action', {type: 'GAME_UPDATE', data: g.state}))
+				.catch(console.error)
 			default:
 				break
   	}
