@@ -1,9 +1,4 @@
-export const userReducer = (state = {
-  letter: '',
-  word: 'dracula',
-  turns: 6,
-  guessArray: []
-}, action) => {
+export const userReducer = (state = {}, action) => {
 
   switch(action.type) {
     case "GUESS_LETTER":

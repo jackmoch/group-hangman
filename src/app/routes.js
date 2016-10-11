@@ -2,8 +2,8 @@ import React from 'react'
 import { browserHistory, Router, Route } from 'react-router'
 import App from "./containers/App"
 import Game from './components/Game'
-import Home from './components/Home'
 import GameLobby from './components/GameLobby'
+import Home from './components/Home'
 
 
 export default class Routes extends React.Component {
