@@ -15,18 +15,18 @@ export default class Game extends React.Component {
         ? target.value
         : target.value.slice(0,1)
      }
-    ;(user.guessArray.length === 0) ? populateArray(user) : null
+    ;(user.gameState.guessArray.length === 0) ? populateArray(user) : null
     testLetter(user)
 
     if(checkWinner(user)) {
       return (
         <div>
           <h3>You won!</h3>
-          <h4>The word was: {user.word}</h4>
+          <h4>The word was: {user.gameState.word}</h4>
         </div>
       )
     }
-    if(!checkWinner(user) && user.turns === 0) {
+    if(!checkWinner(user) && user.gameState.turns === 0) {
       return (
         <div>
           <h3>You lost!</h3>
@@ -35,8 +35,8 @@ export default class Game extends React.Component {
     }
     return (
       <div>
-        <h3>Turns remaining: {user.turns}</h3>
-        {user.guessArray.map((v,i) => <span key={i}>{v}</span>)}
+        <h3>Turns remaining: {user.gameState.turns}</h3>
+        {user.gameState.guessArray.map((v,i) => <span key={i}>{v}</span>)}
         <input type='text' onChange={handleChange} onBlur={clearInputs} placeholder='your letter here'/>
         <button className='btn' onClick={() => guessLetter(letter)}>Placeholder</button>
       </div>
@@ -46,17 +46,17 @@ export default class Game extends React.Component {
     e.target.value = ''
   }
   testLetter(user) {
-    user.word.split('').forEach((v,i) => {
-      if(user.letter.toLowerCase() === v.toLowerCase()) {
-        user.guessArray.splice(i, 1, ` ${v} `)
+    user.gameState.word.split('').forEach((v,i) => {
+      if(user.gameState.letter.toLowerCase() === v.toLowerCase()) {
+        user.gameState.guessArray.splice(i, 1, ` ${v} `)
       }
     })
   }
   populateArray(user) {
-    user.word.split('').forEach(v => user.guessArray.push(' _ '))
+    user.gameState.word.split('').forEach(v => user.gameState.guessArray.push(' _ '))
   }
   checkWinner(user) {
-     if (user.guessArray.includes(' _ ')) {
+     if (user.gameState.guessArray.includes(' _ ')) {
        return false
      }
      return true

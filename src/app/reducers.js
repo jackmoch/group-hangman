@@ -13,6 +13,8 @@ export const userReducer = (state = {
         turns: state.turns - action.incrementOrDecrement
       }
       return state
+    case "NEW_GAME":
+      return Object.assign({}, state, {gameState: action.data})
     default:
       return state
   }
@@ -20,8 +22,6 @@ export const userReducer = (state = {
 
 export const clientReducer = (state = {}, action) => {
   switch(action.type) {
-    case "NEW_GAME":
-      return Object.assign({}, state, {id: action.data})
     case "GAMES_LIST":
       return Object.assign({}, state, {gamesList: action.data})
     default:

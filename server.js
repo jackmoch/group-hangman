@@ -35,10 +35,17 @@ io.on('connection', socket => {
   socket.on('action', action => {
   	switch (action.type) {
   		case "server/NEW_GAME":
-  			Game.create({
-  				wordToGuess: 'test'
-  			})
-  			.then(game => socket.emit('action', {type: 'NEW_GAME', data: game._id}))
+  			Game.create({})
+  			.then(game => {
+					const gameState = Object.assign({}, {
+						id: game._id,
+						guessArray: game.state.guessArray,
+						turns: game.state.turns,
+						letter: game.state.letter,
+						word: game.state.word
+					})
+					socket.emit('action', {type: 'NEW_GAME', data: gameState})
+				})
 				.catch(err => {
 					socket.emit({type:'ERROR', msg: err.stack})
 					console.error(err.stack)
@@ -49,6 +56,10 @@ io.on('connection', socket => {
 					const gameIds = games.map(game => game._id)
 					socket.emit('action', {type: 'GAMES_LIST', data: gameIds})
 				})
+				.catch(console.error)
+			case "server/LOAD_GAME":
+				Game.find({_id: action.id})
+				.then(game => socket.emit('action', {type:'GAME_LOADED', data: game}))
 				.catch(console.error)
 			default:
 				break

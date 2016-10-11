@@ -44,6 +44,12 @@ const mapDispatchToProps = dispatch => {
       dispatch({
         type: 'server/LOAD_GAMES'
       })
+    },
+    loadGame: id => {
+      dispatch({
+        type: 'server/LOAD_GAME',
+        id
+      })
     }
   }
 }
