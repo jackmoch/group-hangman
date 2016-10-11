@@ -10,6 +10,8 @@ export const userReducer = (state = {}, action) => {
       return state
     case "NEW_GAME":
       return Object.assign({}, state, {gameState: action.data})
+    case "GAME_UPDATE":
+      return Object.assign({}, state, {gameState: action.data})
     default:
       return state
   }

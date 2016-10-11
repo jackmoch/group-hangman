@@ -3,11 +3,8 @@ import { Link } from 'react-router'
 
 export default class Game extends React.Component {
   render() {
-    const {
-      props, populateArray,
-      testLetter, clearInputs,
-      checkWinner             } = this
-    const { user, guessLetter } = props
+    const { props, clearInputs, checkWinner } = this
+    const       { user, guessLetter, params } = props
 
     let letter
     const handleChange = ({target}) => {
@@ -15,8 +12,6 @@ export default class Game extends React.Component {
         ? target.value
         : target.value.slice(0,1)
      }
-    ;(user.gameState.guessArray.length === 0) ? populateArray(user) : null
-    testLetter(user)
 
     if(checkWinner(user)) {
       return (
@@ -38,22 +33,12 @@ export default class Game extends React.Component {
         <h3>Turns remaining: {user.gameState.turns}</h3>
         {user.gameState.guessArray.map((v,i) => <span key={i}>{v}</span>)}
         <input type='text' onChange={handleChange} onBlur={clearInputs} placeholder='your letter here'/>
-        <button className='btn' onClick={() => guessLetter(letter)}>Placeholder</button>
+        <button className='btn' onClick={() => guessLetter(letter, params.id)}>Placeholder</button>
       </div>
     )
   }
   clearInputs(e) {
     e.target.value = ''
-  }
-  testLetter(user) {
-    user.gameState.word.split('').forEach((v,i) => {
-      if(user.gameState.letter.toLowerCase() === v.toLowerCase()) {
-        user.gameState.guessArray.splice(i, 1, ` ${v} `)
-      }
-    })
-  }
-  populateArray(user) {
-    user.gameState.word.split('').forEach(v => user.gameState.guessArray.push(' _ '))
   }
   checkWinner(user) {
      if (user.gameState.guessArray.includes(' _ ')) {

@@ -28,11 +28,11 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    guessLetter: letter => {
+    guessLetter: (letter, id) => {
       dispatch({
-        type: 'GUESS_LETTER',
-        payload: letter,
-        incrementOrDecrement: 1
+        type: 'server/GUESS_LETTER',
+        letter,
+        id,
       })
     },
     newGame: () => {

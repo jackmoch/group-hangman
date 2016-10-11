@@ -44,8 +44,10 @@ io.on('connection', socket => {
 						letter: game.state.letter,
 						word: game.state.word
 					})
-					socket.emit('action', {type: 'NEW_GAME', data: gameState})
+					gameState.word.split('').forEach(v => gameState.guessArray.push(' _ '))
+					return game.save()
 				})
+				.then(g => socket.emit('action', {type: 'NEW_GAME', data: g.state}))
 				.catch(err => {
 					socket.emit({type:'ERROR', msg: err.stack})
 					console.error(err.stack)
@@ -61,6 +63,26 @@ io.on('connection', socket => {
 				Game.find({_id: action.id})
 				.then(game => socket.emit('action', {type:'GAME_LOADED', data: game}))
 				.catch(console.error)
+			case "server/GUESS_LETTER":
+				Game
+					.findOne({_id: action.id})
+					.then(game => {
+						const gameState = Object.assign({}, {
+							id: game._id,
+							guessArray: game.state.guessArray,
+							turns: game.state.turns,
+							letter: game.state.letter,
+							word: game.state.word
+						})
+						gameState.word.split('').forEach((v,i) => {
+				      if(action.letter.toLowerCase() === v.toLowerCase()) {
+				        gameState.guessArray.splice(i, 1, ` ${v} `)
+				      }
+				    })
+						return game.save()
+					})
+					.then(g => socket.emit('action', {type: 'GAME_UPDATE', data: g.state}))
+					.catch(console.error)
 			default:
 				break
   	}
