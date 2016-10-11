@@ -16,10 +16,15 @@ mongoose.Promise = Promise
 
 mongoose.connect(MONGODB_URL, () => {
 	console.log('Mongod Connected')
-}) 
+})
 
 const Game = mongoose.model('Game', {
-	wordToGuess: String,
+	state: {
+		letter: {type: String, default: ''},
+		word: {type: String, default: 'wood'},
+		turns: {type: Number, default: 6},
+		guessArray: {type: Array, default: []}
+	},
 })
 
 io.on('connection', socket => {
