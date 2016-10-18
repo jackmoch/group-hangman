@@ -1,3 +1,3 @@
 # group-hangman
 
-Developed along side [Thomas Swann](https://github.com/tkswann2) 
+Developed as team with [Thomas Swann](https://github.com/tkswann2) 
